@@ -1,0 +1,13 @@
+.DS_Store
+*~
+.#*
+\#*
+*.hi
+*.o
+*.jar
+*.flymake
+*.el
+*.agdai
+MAlonzo
+html
+Default
