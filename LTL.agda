@@ -47,6 +47,9 @@ _⇒_ : TPred → TPred → TPred
 
 -----------------------------------------
 
+Always : TPred → Set
+Always = Π Time
+
 -- Unary Temporal Operators
 
 -- Global
@@ -54,7 +57,13 @@ _⇒_ : TPred → TPred → TPred
 G : TPred → TPred
 G φ t = (t' : Time) → t ≤ t' → φ t'
 
+G¬ : TPred → TPred
+G¬ φ = ¬ (G φ)
+
 -- Future
 
 F : TPred → TPred
 F φ t = ∃ (λ t' → t ≤ t' × φ t')
+
+F¬ : TPred → TPred
+F¬ φ = ¬ (F φ)

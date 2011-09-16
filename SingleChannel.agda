@@ -8,54 +8,55 @@ infixr 2  _⇛_
 data Command : Set where
   nickuser join part quit : Command
 
-data Connection : Set where
-  connected ¬connected : Connection
-
-data Channel : Set where
-  member ¬member : Channel
-
 data State : Set where
   ¬connected∧¬member : State
   connected∧¬member : State
   connected∧member : State
 
-data Server : Set where
-  server : State → Server
+data Member : State → Set where
+  connected∧member : Member connected∧member
 
-data Next : Server → Server → Set where
+data Connected : State → Set where
+  connected∧¬member : Connected connected∧¬member
+  connected∧member : Connected connected∧member
+
+data ¬Connected : State → Set where
+  ¬connected∧¬member : ¬Connected ¬connected∧¬member
+
+data Next : State → State → Set where
   _⇛_ : ∀ {a b c} →
     Next a b → Next b c → Next a c
   ¬connected-nickuser :
-    Next (server ¬connected∧¬member) (server connected∧¬member)
+    Next ¬connected∧¬member connected∧¬member
   ¬connected-join :
-    Next (server ¬connected∧¬member) (server ¬connected∧¬member)
+    Next ¬connected∧¬member ¬connected∧¬member
   ¬connected-part :
-    Next (server ¬connected∧¬member) (server ¬connected∧¬member)
+    Next ¬connected∧¬member ¬connected∧¬member
   ¬connected-quit :
-    Next (server ¬connected∧¬member) (server ¬connected∧¬member)
+    Next ¬connected∧¬member ¬connected∧¬member
 
   ¬member-nickuser :
-    Next (server connected∧¬member) (server connected∧¬member)
+    Next connected∧¬member connected∧¬member
   ¬member-join :
-    Next (server connected∧¬member) (server connected∧member)
+    Next connected∧¬member connected∧member
   ¬member-part :
-    Next (server connected∧¬member) (server connected∧¬member)
+    Next connected∧¬member connected∧¬member
   ¬member-quit :
-    Next (server connected∧¬member) (server ¬connected∧¬member)
+    Next connected∧¬member ¬connected∧¬member
 
   member-nickuser :
-    Next (server connected∧member) (server connected∧member)
+    Next connected∧member connected∧member
   member-join :
-    Next (server connected∧member) (server connected∧member)
+    Next connected∧member connected∧member
   member-part :
-    Next (server connected∧member) (server connected∧¬member)
+    Next connected∧member connected∧¬member
   member-quit :
-    Next (server connected∧member) (server ¬connected∧¬member)
+    Next connected∧member ¬connected∧¬member
 
 Next-Reflexive : Reflexive Next
-Next-Reflexive {server ¬connected∧¬member} = ¬connected-join
-Next-Reflexive {server connected∧¬member} = ¬member-nickuser
-Next-Reflexive {server connected∧member} = member-nickuser
+Next-Reflexive {¬connected∧¬member} = ¬connected-join
+Next-Reflexive {connected∧¬member} = ¬member-nickuser
+Next-Reflexive {connected∧member} = member-nickuser
 
 Next-Transitive : Transitive Next
 Next-Transitive ab bc = ab ⇛ bc
