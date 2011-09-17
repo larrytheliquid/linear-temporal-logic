@@ -12,10 +12,17 @@ Connected∨¬Connected : TPred
 Connected∨¬Connected = G (Connected ∨ ¬Connected)
 
 proof:Connected∨¬Connected : FromInitial Connected∨¬Connected
-proof:Connected∨¬Connected ¬connected∧¬member (x ⇛ x') = inr ¬connected∧¬member
-proof:Connected∨¬Connected ¬connected∧¬member t = inr ¬connected∧¬member
-proof:Connected∨¬Connected connected∧¬member t = inl connected∧¬member
-proof:Connected∨¬Connected connected∧member t = inl connected∧member
+proof:Connected∨¬Connected ¬connected∧¬member _ = inr ¬connected∧¬member
+proof:Connected∨¬Connected connected∧¬member _ = inl connected∧¬member
+proof:Connected∨¬Connected connected∧member _ = inl connected∧member
+
+Member∨¬Member : TPred
+Member∨¬Member = G (Member ∨ ¬Member)
+
+proof:Member∨¬Member : FromInitial Member∨¬Member
+proof:Member∨¬Member ¬connected∧¬member _ = inr ¬connected∧¬member
+proof:Member∨¬Member connected∧¬member _ = inr connected∧¬member
+proof:Member∨¬Member connected∧member _ = inl connected∧member
 
 {- Reachability -}
 
@@ -43,6 +50,41 @@ proof:Member-Reachable =
 
 proof:¬Member-Reachable : FromInitial ¬Member-Reachable
 proof:¬Member-Reachable = _ , (¬connected-part , ¬connected∧¬member)
+
+{- Fairness -}
+
+Connected-Fair : TPred
+Connected-Fair = G (F Connected)
+
+proof:Connected-Fair : FromInitial Connected-Fair
+proof:Connected-Fair ¬connected∧¬member _ = _ , (¬connected-nickuser , connected∧¬member)
+proof:Connected-Fair connected∧¬member _ = _ , (¬member-part , connected∧¬member)
+proof:Connected-Fair connected∧member _ = _ , (member-join , connected∧member)
+
+¬Connected-Fair : TPred
+¬Connected-Fair = G (F ¬Connected)
+
+proof:¬Connected-Fair : FromInitial ¬Connected-Fair
+proof:¬Connected-Fair ¬connected∧¬member _ = _ , (¬connected-quit , ¬connected∧¬member)
+proof:¬Connected-Fair connected∧¬member _ = _ , (¬member-quit , ¬connected∧¬member)
+proof:¬Connected-Fair connected∧member _ = _ , (member-quit , ¬connected∧¬member)
+
+Member-Fair : TPred
+Member-Fair = G (F Member)
+
+proof:Member-Fair : FromInitial Member-Fair
+proof:Member-Fair ¬connected∧¬member _ =
+  _ , (¬connected-nickuser ⇛ ¬member-join , connected∧member)
+proof:Member-Fair connected∧¬member _ = _ , (¬member-join , connected∧member)
+proof:Member-Fair connected∧member _ = _ , (member-join , connected∧member)
+
+¬Member-Fair : TPred
+¬Member-Fair = G (F ¬Member)
+
+proof:¬Member-Fair : FromInitial ¬Member-Fair
+proof:¬Member-Fair ¬connected∧¬member _ = _ , (¬connected-part , ¬connected∧¬member)
+proof:¬Member-Fair connected∧¬member _ = _ , (¬member-part , connected∧¬member)
+proof:¬Member-Fair connected∧member _ = _ , (member-part , connected∧¬member)
 
 {- Safety -}
 
