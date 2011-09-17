@@ -6,6 +6,7 @@ open import Logic
 module LTL
 
   (Time    : Set)
+  (initial   : Time)
   (_≤_    : Rel Time)
   (reflex  : Reflexive _≤_)
   (transit : Transitive _≤_)
@@ -47,8 +48,8 @@ _⇒_ : TPred → TPred → TPred
 
 -----------------------------------------
 
-Always : TPred → Set
-Always = Π Time
+FromInitial : TPred → Set
+FromInitial φ = φ initial
 
 -- Unary Temporal Operators
 
@@ -58,7 +59,7 @@ G : TPred → TPred
 G φ t = (t' : Time) → t ≤ t' → φ t'
 
 G¬ : TPred → TPred
-G¬ φ = ¬ (G φ)
+G¬ φ = G (¬ φ)
 
 -- Future
 
@@ -66,4 +67,4 @@ F : TPred → TPred
 F φ t = ∃ (λ t' → t ≤ t' × φ t')
 
 F¬ : TPred → TPred
-F¬ φ = ¬ (F φ)
+F¬ φ = F (¬ φ)
