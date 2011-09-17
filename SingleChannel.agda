@@ -3,7 +3,7 @@ module SingleChannel where
 open import NeilPrelude
 open import Logic
 
-infixr 2  _⇛_
+infixr 3  _⇛_
 
 data Command : Set where
   nickuser join part quit : Command
@@ -15,6 +15,10 @@ data State : Set where
 
 data Member : State → Set where
   connected∧member : Member connected∧member
+
+data ¬Member : State → Set where
+  ¬connected∧¬member : ¬Member ¬connected∧¬member
+  connected∧¬member : ¬Member connected∧¬member
 
 data Connected : State → Set where
   connected∧¬member : Connected connected∧¬member
