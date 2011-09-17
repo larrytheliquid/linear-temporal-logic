@@ -60,3 +60,4 @@ Next-Reflexive {connected∧member} = member-nickuser
 
 Next-Transitive : Transitive Next
 Next-Transitive ab bc = ab ⇛ bc
+
