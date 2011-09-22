@@ -1,5 +1,5 @@
 {-# OPTIONS --type-in-type #-}
-module Theorems where
+module SingleChannelTheorems where
 
 open import NeilPrelude
 open import SingleChannel
