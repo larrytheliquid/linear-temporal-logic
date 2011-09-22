@@ -55,16 +55,16 @@ FromInitial φ = φ initial
 
 -- Global
 
-G : TPred → TPred
-G φ t = (t' : Time) → t ≤ t' → φ t'
+□ : TPred → TPred
+□ φ t = (t' : Time) → t ≤ t' → φ t'
 
-G¬ : TPred → TPred
-G¬ φ = G (¬ φ)
+□¬ : TPred → TPred
+□¬ φ = □ (¬ φ)
 
 -- Future
 
-F : TPred → TPred
-F φ t = ∃ (λ t' → t ≤ t' × φ t')
+◇ : TPred → TPred
+◇ φ t = ∃ (λ t' → t ≤ t' × φ t')
 
-F¬ : TPred → TPred
-F¬ φ = F (¬ φ)
+◇¬ : TPred → TPred
+◇¬ φ = ◇ (¬ φ)
