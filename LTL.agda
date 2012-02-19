@@ -1,17 +1,27 @@
-{-# OPTIONS --type-in-type #-}
-
-open import NeilPrelude
-open import Logic
+open import FRP.JS.True renaming ( ⊥ to ⊥₀ ; ⊤ to ⊤₀ )
 
 module LTL
 
   (Time    : Set)
-  (initial   : Time)
-  (_≤_    : Rel Time)
-  (reflex  : Reflexive _≤_)
-  (transit : Transitive _≤_)
+  (initial : Time)
+  (_≤_     : Time → Time → Set)
+  -- (reflex  : Reflexive _≤_)
+  -- (transit : Transitive _≤_)
 
 where
+
+infixr 2 _×_
+infixr 4 _,_
+
+data _⊎_ (A B : Set) : Set where
+  inj₁ : A → A ⊎ B
+  inj₂ : B → A ⊎ B
+
+data _×_ (A B : Set) : Set where
+  _,_ : A → B → A × B
+
+data Σ (A : Set) (B : A → Set) : Set where
+  _,_ : (a : A) → B a → Σ A B
 
 -------------------------------
 
@@ -38,10 +48,10 @@ _⇒_ : TPred → TPred → TPred
 (φ ⇒ ψ) t = φ t → ψ t
 
 ⊥ : TPred
-⊥ t = False
+⊥ t = ⊥₀
 
 ⊤ : TPred
-⊤ t = True
+⊤ t = ⊤₀
 
 ¬_ : TPred → TPred
 ¬ φ = φ ⇒ ⊥
@@ -64,7 +74,7 @@ FromInitial φ = φ initial
 -- Future
 
 ◇ : TPred → TPred
-◇ φ t = ∃ (λ t' → t ≤ t' × φ t')
+◇ φ t = Σ _ (λ t' → t ≤ t' × φ t')
 
 ◇¬ : TPred → TPred
 ◇¬ φ = ◇ (¬ φ)

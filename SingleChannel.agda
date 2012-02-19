@@ -1,9 +1,6 @@
-{-# OPTIONS --type-in-type #-}
 module SingleChannel where
-open import NeilPrelude
-open import Logic
 
-infixr 3  _⇛_
+infixr 5  _⇛_
 
 data Command : Set where
   nickuser join part quit : Command
@@ -57,11 +54,11 @@ data Next : State → State → Set where
   member-quit :
     Next connected∧member ¬connected∧¬member
 
-Next-Reflexive : Reflexive Next
-Next-Reflexive {¬connected∧¬member} = ¬connected-join
-Next-Reflexive {connected∧¬member} = ¬member-nickuser
-Next-Reflexive {connected∧member} = member-nickuser
+-- Next-Reflexive : Reflexive Next
+-- Next-Reflexive {¬connected∧¬member} = ¬connected-join
+-- Next-Reflexive {connected∧¬member} = ¬member-nickuser
+-- Next-Reflexive {connected∧member} = member-nickuser
 
-Next-Transitive : Transitive Next
-Next-Transitive ab bc = ab ⇛ bc
+-- Next-Transitive : Transitive Next
+-- Next-Transitive ab bc = ab ⇛ bc
 

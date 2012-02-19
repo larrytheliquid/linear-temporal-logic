@@ -1,10 +1,8 @@
-{-# OPTIONS --type-in-type #-}
 module SingleChannelTheorems where
 
-open import NeilPrelude
 open import SingleChannel
 import LTL
-open LTL State ¬connected∧¬member Next Next-Reflexive Next-Transitive
+open LTL State ¬connected∧¬member Next -- Next-Reflexive Next-Transitive
 
 {- Adequacy -}
 
@@ -12,17 +10,17 @@ Connected∨¬Connected : TPred
 Connected∨¬Connected = □ (Connected ∨ ¬Connected)
 
 proof:Connected∨¬Connected : FromInitial Connected∨¬Connected
-proof:Connected∨¬Connected ¬connected∧¬member _ = inr ¬connected∧¬member
-proof:Connected∨¬Connected connected∧¬member _ = inl connected∧¬member
-proof:Connected∨¬Connected connected∧member _ = inl connected∧member
+proof:Connected∨¬Connected ¬connected∧¬member _ = inj₂ ¬connected∧¬member
+proof:Connected∨¬Connected connected∧¬member _ = inj₁ connected∧¬member
+proof:Connected∨¬Connected connected∧member _ = inj₁ connected∧member
 
 Member∨¬Member : TPred
 Member∨¬Member = □ (Member ∨ ¬Member)
 
 proof:Member∨¬Member : FromInitial Member∨¬Member
-proof:Member∨¬Member ¬connected∧¬member _ = inr ¬connected∧¬member
-proof:Member∨¬Member connected∧¬member _ = inr connected∧¬member
-proof:Member∨¬Member connected∧member _ = inl connected∧member
+proof:Member∨¬Member ¬connected∧¬member _ = inj₂ ¬connected∧¬member
+proof:Member∨¬Member connected∧¬member _ = inj₂ connected∧¬member
+proof:Member∨¬Member connected∧member _ = inj₁ connected∧member
 
 {- Reachability -}
 
