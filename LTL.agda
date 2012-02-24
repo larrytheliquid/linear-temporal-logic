@@ -61,6 +61,8 @@ _⇒_ : TPred → TPred → TPred
 FromInitial : TPred → Set
 FromInitial φ = φ initial
 
+⟦_⟧ = FromInitial
+
 -- Unary Temporal Operators
 
 -- Global
@@ -78,3 +80,11 @@ FromInitial φ = φ initial
 
 ◇¬ : TPred → TPred
 ◇¬ φ = ◇ (¬ φ)
+
+-- Until
+
+_[_,_⟩ : TPred → Time → Time → Set
+φ [ s , u ⟩ = ∀ t → s ≤ t → t ≤ u → φ t
+
+_U_ : TPred → TPred → TPred
+φ U ψ = λ s → Σ _ (λ u → s ≤ u × φ [ s , u ⟩ × ψ u)
