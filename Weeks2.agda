@@ -42,7 +42,7 @@ data Weekend : Day → Set where
 
 open LTL Day mon _≤_
 
-□Weekday∨Weekend : ⟦ □ (Weekday ∨ Weekend) ⟧
+□Weekday∨Weekend : ⟨ □ (Weekday ∨ Weekend) ⟩
 □Weekday∨Weekend mon _ = inj₁ mon
 □Weekday∨Weekend tue _ = inj₁ tue
 □Weekday∨Weekend wed _ = inj₁ wed
@@ -51,7 +51,7 @@ open LTL Day mon _≤_
 □Weekday∨Weekend sat _ = inj₂ sat
 □Weekday∨Weekend sun _ = inj₂ sun
 
-□¬Weekday∨Weekend : ⟦ □¬ (Weekday ∧ Weekend) ⟧
+□¬Weekday∨Weekend : ⟨ □¬ (Weekday ∧ Weekend) ⟩
 □¬Weekday∨Weekend mon _ (mon , ())
 □¬Weekday∨Weekend tue _ (tue , ())
 □¬Weekday∨Weekend wed _ (wed , ())
@@ -60,7 +60,7 @@ open LTL Day mon _≤_
 □¬Weekday∨Weekend sat _ (() , sat)
 □¬Weekday∨Weekend sun _ (() , sun)
 
-WeekdayUWeekend : ⟦ Weekday U Weekend ⟧
+WeekdayUWeekend : ⟨ Weekday U Weekend ⟩
 WeekdayUWeekend = sat , f where
   postulate
     g : (t : Day) → mon ≤ t → t ≤ sat → Weekday t

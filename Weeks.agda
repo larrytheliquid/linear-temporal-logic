@@ -31,7 +31,7 @@ data Weekend : Day → Set where
 
 open LTL Day mon Later
 
-□Weeday∨Weekend : ⟦ □ (Weekday ∨ Weekend) ⟧
+□Weeday∨Weekend : ⟨ □ (Weekday ∨ Weekend) ⟩
 □Weeday∨Weekend mon _ = inj₁ mon
 □Weeday∨Weekend tue _ = inj₁ tue
 □Weeday∨Weekend wed _ = inj₁ wed
@@ -40,7 +40,7 @@ open LTL Day mon Later
 □Weeday∨Weekend sat _ = inj₂ sat
 □Weeday∨Weekend sun _ = inj₂ sun
 
-□¬Weeday∨Weekend : ⟦ □¬ (Weekday ∧ Weekend) ⟧
+□¬Weeday∨Weekend : ⟨ □¬ (Weekday ∧ Weekend) ⟩
 □¬Weeday∨Weekend mon _ (mon , ())
 □¬Weeday∨Weekend tue _ (tue , ())
 □¬Weeday∨Weekend wed _ (wed , ())
@@ -49,18 +49,18 @@ open LTL Day mon Later
 □¬Weeday∨Weekend sat _ (() , sat)
 □¬Weeday∨Weekend sun _ (() , sun)
 
-WeekdayUWeekend : ⟦ Weekday U Weekend ⟧
+WeekdayUWeekend : ⟨ Weekday U Weekend ⟩
 WeekdayUWeekend = sat , f where
-  g : ∀ {t} → Later mon t → Later t sat → Weekday t
+  g : ∀ t → Later mon t → Later t sat → Weekday t
   -- g mon b = tue
   -- g {t} (x ⇛ y) b = {!!}
-  g {mon} a b = mon
-  g {tue} a b = tue
-  g {wed} a b = wed
-  g {thu} a b = thu
-  g {fri} a b = fri
-  g {sat} a (y ⇛ y') = {!!}
-  g {sun} a b = {!!}
+  g mon a b = mon
+  g tue a b = tue
+  g wed a b = wed
+  g thu a b = thu
+  g fri a b = fri
+  g sat a (y ⇛ y') = {!!}
+  g sun a b = {!!}
 
-  f : Later mon sat × (∀ {t} → Later mon t → Later t sat → Weekday t) × Weekend sat
+  f : Later mon sat × (∀ t → Later mon t → Later t sat → Weekday t) × Weekend sat
   f = mon ⇛ tue ⇛ wed ⇛ thu ⇛ fri , {!!} , sat

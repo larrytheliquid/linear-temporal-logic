@@ -60,8 +60,10 @@ _⇒_ : TPred → TPred → TPred
 
 FromInitial : TPred → Set
 FromInitial φ = φ initial
+⟨_⟩ = FromInitial
 
-⟦_⟧ = FromInitial
+⟦_⟧ : TPred → Set
+⟦_⟧ φ = ∀ t → φ t
 
 -- Unary Temporal Operators
 
