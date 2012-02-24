@@ -42,23 +42,23 @@ data Weekend : Day → Set where
 
 open LTL Day mon _≤_
 
-□Weeday∨Weekend : ⟦ □ (Weekday ∨ Weekend) ⟧
-□Weeday∨Weekend mon _ = inj₁ mon
-□Weeday∨Weekend tue _ = inj₁ tue
-□Weeday∨Weekend wed _ = inj₁ wed
-□Weeday∨Weekend thu _ = inj₁ thu
-□Weeday∨Weekend fri _ = inj₁ fri
-□Weeday∨Weekend sat _ = inj₂ sat
-□Weeday∨Weekend sun _ = inj₂ sun
+□Weekday∨Weekend : ⟦ □ (Weekday ∨ Weekend) ⟧
+□Weekday∨Weekend mon _ = inj₁ mon
+□Weekday∨Weekend tue _ = inj₁ tue
+□Weekday∨Weekend wed _ = inj₁ wed
+□Weekday∨Weekend thu _ = inj₁ thu
+□Weekday∨Weekend fri _ = inj₁ fri
+□Weekday∨Weekend sat _ = inj₂ sat
+□Weekday∨Weekend sun _ = inj₂ sun
 
-□¬Weeday∨Weekend : ⟦ □¬ (Weekday ∧ Weekend) ⟧
-□¬Weeday∨Weekend mon _ (mon , ())
-□¬Weeday∨Weekend tue _ (tue , ())
-□¬Weeday∨Weekend wed _ (wed , ())
-□¬Weeday∨Weekend thu _ (thu , ())
-□¬Weeday∨Weekend fri _ (fri , ())
-□¬Weeday∨Weekend sat _ (() , sat)
-□¬Weeday∨Weekend sun _ (() , sun)
+□¬Weekday∨Weekend : ⟦ □¬ (Weekday ∧ Weekend) ⟧
+□¬Weekday∨Weekend mon _ (mon , ())
+□¬Weekday∨Weekend tue _ (tue , ())
+□¬Weekday∨Weekend wed _ (wed , ())
+□¬Weekday∨Weekend thu _ (thu , ())
+□¬Weekday∨Weekend fri _ (fri , ())
+□¬Weekday∨Weekend sat _ (() , sat)
+□¬Weekday∨Weekend sun _ (() , sun)
 
 WeekdayUWeekend : ⟦ Weekday U Weekend ⟧
 WeekdayUWeekend = sat , f where

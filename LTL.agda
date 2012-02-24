@@ -81,10 +81,17 @@ FromInitial φ = φ initial
 ◇¬ : TPred → TPred
 ◇¬ φ = ◇ (¬ φ)
 
--- Until
+-- Binary Temporal Operators
 
 _[_,_⟩ : TPred → Time → Time → Set
 φ [ s , u ⟩ = ∀ t → s ≤ t → t ≤ u → φ t
 
+-- Until
+
 _U_ : TPred → TPred → TPred
 φ U ψ = λ s → Σ _ (λ u → s ≤ u × φ [ s , u ⟩ × ψ u)
+
+-- Constrains
+
+_▹_ : TPred → TPred → TPred
+φ ▹ ψ = λ s → ∀ u → s ≤ u → φ [ s , u ⟩ → ψ u
