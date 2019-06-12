@@ -86,7 +86,6 @@ data _≡_ {A : Set} (a : A) : A → Set where
   refl : a ≡ a 
 
 {-# BUILTIN EQUALITY _≡_ #-}
-{-# BUILTIN REFL refl #-}
 
 Eq : (A : Set) → Rel A
 Eq A = _≡_ {A}

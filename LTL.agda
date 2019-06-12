@@ -4,14 +4,12 @@ open import NeilPrelude
 open import Logic
 
 module LTL
-
   (Time    : Set)
-  (initial   : Time)
-  (_≤_    : Rel Time)
+  (initial : Time)
+  (_≤_     : Rel Time)
   (reflex  : Reflexive _≤_)
   (transit : Transitive _≤_)
-
-where
+  where
 
 -------------------------------
 
